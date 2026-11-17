@@ -24,7 +24,7 @@
   // X_URL: the X profile link. Empty = "coming soon" for either.
   const CONFIG = {
     CA: '2Qt3mhYF3PFiDooQgUKeNLw8dDRDjGBk3s7Abvq9pump',
-    X_URL: '',
+    X_URL: 'https://x.com/i/communities/2030517501025829152',
   };
   const { CA, X_URL } = CONFIG;
 
