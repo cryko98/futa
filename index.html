@@ -53,6 +53,7 @@
       <a href="#record" data-i18n="nav.record">The Record</a>
       <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
       <a href="#donate" data-i18n="nav.donate">Donate</a>
+      <a href="#tracker" data-i18n="nav.tracker">Tracker</a>
     </nav>
     <div class="nav__right">
       <div class="lang" role="group" aria-label="Language">
@@ -321,6 +322,94 @@
       </div>
     </section>
 
+    <!-- BAMBOO LEDGER (live donation tracker) -->
+    <section class="ledger" id="tracker" aria-label="Live donation tracker">
+      <div class="ledger__head">
+        <span class="mono label"><i class="led-dot"></i> <span data-i18n="led.label">Live · Chapter VI — The Bamboo Ledger</span></span>
+        <h2 data-i18n="led.h2">Every dollar,<br /><em>on the record.</em></h2>
+        <p class="ledger__intro" data-i18n="led.intro">
+          $FUTA creator rewards are donated on-chain through donate.gg to Red Panda Network. This tracker reads donate.gg's public receipts and the Solana vaults live. Only settled donations are counted. Nothing is estimated into the total.
+        </p>
+      </div>
+
+      <div class="led-card">
+        <div class="gauge-wrap">
+          <div class="gauge">
+            <svg viewBox="0 0 320 320" aria-hidden="true">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#f2b712" /><stop offset="1" stop-color="#d4561c" />
+                </linearGradient>
+              </defs>
+              <g class="gauge-ticks"></g>
+              <g transform="rotate(-90 160 160)">
+                <circle class="g-track" cx="160" cy="160" r="136" pathLength="100" />
+                <circle class="g-in" data-g-in cx="160" cy="160" r="136" pathLength="100" />
+                <circle class="g-set" data-g-set cx="160" cy="160" r="136" pathLength="100" />
+              </g>
+            </svg>
+            <img class="gauge-coin" src="assets/img/coin.png" alt="" />
+            <b class="gauge-pct" data-g-pct>0%</b>
+          </div>
+          <div class="gauge-goal">
+            <span data-i18n="led.next">Next goal</span>
+            <b data-goal-name>First shoot</b>
+            <small data-goal-pct>0% of $5,000</small>
+          </div>
+        </div>
+
+        <div class="res-data">
+          <div class="res-top">
+            <span class="live" data-m-live><i></i><b data-m-status>Connecting</b></span>
+            <a class="res-charity" href="https://www.donate.gg/charities/red-panda-network" target="_blank" rel="noopener" data-i18n="led.charity">Red Panda Network on donate.gg ↗</a>
+          </div>
+
+          <div class="res-main">
+            <div class="odo-row"><span class="odo-cur">$</span><div class="odo" data-odo aria-live="polite" aria-label="Dollars settled to Red Panda Network"></div></div>
+            <p class="res-sub" data-i18n="led.sub">donated to <a href="https://redpandanetwork.org/" target="_blank" rel="noopener">Red Panda Network</a> from $FUTA creator rewards</p>
+          </div>
+
+          <div class="res-pending" data-p-wrap aria-live="polite">
+            <div class="rp-top"><span class="rp-live"><i></i><span data-i18n="led.onway">On the way</span></span><span class="rp-note" data-i18n="led.onwayNote">Creator rewards collected · not sent yet</span></div>
+            <div class="rp-row">
+              <p class="rp-sol"><b data-p-sol>—</b><span>SOL</span></p>
+              <p class="rp-usd"><span>≈</span> <b data-p-usd>—</b><small data-p-rate>at today's SOL price</small></p>
+            </div>
+            <p class="rp-foot" data-p-foot data-i18n="led.pfoot">Waiting to be claimed, converted to USDC and paid to Red Panda Network. It joins the total above once it settles.</p>
+          </div>
+
+          <dl class="res-stats">
+            <div><dt data-i18n="led.st1">Donations</dt><dd data-m-receipts>—</dd></div>
+            <div><dt data-i18n="led.st2">SOL donated</dt><dd data-m-sol>—</dd></div>
+            <div><dt data-i18n="led.st3">Last donation</dt><dd data-m-last>—</dd></div>
+          </dl>
+
+          <ol class="trail">
+            <li>
+              <span class="t-step">1</span>
+              <div class="t-body"><b data-i18n="led.t1">Creator vault</b><small data-i18n="led.t1s">Trading fees collecting. Not counted yet</small></div>
+              <span class="t-amt" data-t-vault>—</span>
+              <a class="t-link off" data-t-vault-link href="#" target="_blank" rel="noopener" data-i18n="led.view">View ↗</a>
+            </li>
+            <li>
+              <span class="t-step">2</span>
+              <div class="t-body"><b data-i18n="led.t2">Converting to USDC</b><small data-i18n="led.t2s">In the donation pipe. Not counted yet</small></div>
+              <span class="t-amt" data-t-pending>—</span>
+              <a class="t-link off" data-t-pending-link href="#" target="_blank" rel="noopener" data-i18n="led.view">View ↗</a>
+            </li>
+            <li>
+              <span class="t-step">3</span>
+              <div class="t-body"><b data-i18n="led.t3">Donated to Red Panda Network</b><small data-t-crank data-i18n="led.t3s">Paid out in USDC on-chain. This is what the ledger counts</small></div>
+              <span class="t-amt" data-t-sent>—</span>
+              <a class="t-link off" data-t-sent-link href="#" target="_blank" rel="noopener">Tx ↗</a>
+            </li>
+          </ol>
+          <p class="lock" data-m-lock hidden></p>
+          <p class="res-meta"><span data-i18n="led.contract">Contract</span><a data-m-ca href="#" target="_blank" rel="noopener">Coming soon</a><span class="sep">·</span><b data-m-updated>Reading settled donations…</b></p>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
@@ -336,6 +425,7 @@
     <p class="foot__legal" data-i18n="foot.legal">
       Futacoin ($FUTA) is a community memecoin made out of love for Futa. It's not affiliated with or endorsed by Chiba Zoological Park, Guinness World Records, Red Panda Network or donate.gg.
       It has no intrinsic value and no expected financial return. Not financial advice.
+      Donations are funded by creator rewards and depend on trading volume. The Bamboo Ledger counts creator rewards donated on-chain through donate.gg to Red Panda Network; it does not confirm how funds are spent.
     </p>
     <p class="foot__credits">
       Photos: Misei sen via Wikimedia Commons (CC BY 4.0); KQuhen via Wikimedia Commons (CC BY-SA 4.0); “Red panda fuuta” via Wikimedia Commons (CC BY-SA 3.0);
@@ -346,6 +436,7 @@
   <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
 
   <script src="i18n.js"></script>
+  <script src="meter.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>

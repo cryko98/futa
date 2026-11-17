@@ -19,11 +19,14 @@
     toastT = setTimeout(() => toast.classList.remove('show'), 2600);
   };
 
-  /* ---------------- CA + X placeholders ---------------- */
-  // When the contract is live, set CA to the address string and it becomes copyable.
-  const CA = '';
-  // When the X account is live, set X_URL to the profile link.
-  const X_URL = '';
+  /* ---------------- site config ---------------- */
+  // CA: the $FUTA mint. Must equal EXPECTED.mint in api/_lib/meter-core.js (a test checks this).
+  // X_URL: the X profile link. Empty = "coming soon" for either.
+  const CONFIG = {
+    CA: '',
+    X_URL: '',
+  };
+  const { CA, X_URL } = CONFIG;
 
   $$('.ca').forEach((btn) => {
     if (CA) btn.querySelector('.ca__val').textContent = CA.slice(0, 4) + '…' + CA.slice(-4);
@@ -385,6 +388,11 @@
   gsap.from('.donate__title > span > span', { yPercent: 105, duration: 1.1, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.donate__title', start: 'top 80%' } });
   gsap.from('.dcard', { x: 80, opacity: 0, stagger: .12, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: '.donate__cards', start: 'top 80%' } });
   gsap.from('.donate__copy > *', { y: 40, opacity: 0, stagger: .1, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: '.donate__grid', start: 'top 80%' } });
+
+  /* ---- bamboo ledger ---- */
+  gsap.from('.ledger__head h2, .ledger__intro', { y: 70, opacity: 0, stagger: .12, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.ledger', start: 'top 75%' } });
+  gsap.from('.led-card', { y: 90, rotate: -1.5, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.led-card', start: 'top 85%' } });
+  gsap.from('.trail li', { x: 40, opacity: 0, stagger: .08, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.trail', start: 'top 90%' } });
 
   /* ---- footer ---- */
   gsap.from('.foot__big', { yPercent: 40, scale: .85, opacity: 0, ease: 'power3.out', scrollTrigger: { trigger: '.foot', start: 'top bottom', end: 'top 30%', scrub: true } });
