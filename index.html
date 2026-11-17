@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Futacoin ($FUTA) — The Red Panda Who Stood Up</title>
+  <meta name="description" content="Futacoin ($FUTA) on Solana. A tribute to Futa, the red panda who stood up in 2005 and is now the Guinness World Records oldest living red panda in captivity. Donating to Red Panda Network via donate.gg." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Futacoin" />
+  <meta property="og:title" content="Futacoin ($FUTA) — The Red Panda Who Stood Up" />
+  <meta property="og:description" content="23 years, 135 days. Officially the oldest living red panda in captivity. A Solana memecoin donating to Red Panda Network." />
+  <!-- Link preview: crawlers (X, Telegram, Discord) need an absolute URL. Replace the domain once the site is live. -->
+  <meta property="og:image" content="assets/img/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Futacoin $FUTA hero: the red panda coin and a live age counter" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Futacoin ($FUTA) — The Red Panda Who Stood Up" />
+  <meta name="twitter:description" content="23 years, 135 days. Officially the oldest living red panda in captivity. Donating to Red Panda Network." />
+  <meta name="twitter:image" content="assets/img/og.jpg" />
+  <meta name="theme-color" content="#140d0a" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon-64.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__kanji">風太</div>
+    <div class="loader__count"><span id="loaderNum">0</span><small>yrs</small></div>
+    <div class="loader__bar"><i id="loaderBar"></i></div>
+    <div class="loader__label" data-i18n="loader.label">loading the oldest legend in the zoo</div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <canvas id="leaves" aria-hidden="true"></canvas>
+  <div class="cursor" id="cursor" aria-hidden="true"><span>🐾</span></div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand">
+      <img src="assets/img/coin-96.png" alt="Futacoin logo" width="40" height="40" />
+      <span>Futacoin <small class="mono">$FUTA</small></span>
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#stand" data-i18n="nav.stand">The Stand</a>
+      <a href="#life" data-i18n="nav.life">23 Years</a>
+      <a href="#record" data-i18n="nav.record">The Record</a>
+      <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+      <a href="#donate" data-i18n="nav.donate">Donate</a>
+    </nav>
+    <div class="nav__right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ja" lang="ja">日本語</button>
+      </div>
+      <a href="#" class="x-btn magnetic" aria-label="$FUTA on X (coming soon)" title="X link coming soon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__kanji" aria-hidden="true">風太</div>
+
+      <div class="hero__meta mono">
+        <span data-i18n="hero.meta1">FUTACOIN · SOLANA MEMECOIN</span>
+        <span data-i18n="hero.meta2">CHIBA, JAPAN · EST. 05.07.2003</span>
+      </div>
+
+      <h1 class="hero__title" aria-label="$FUTA">
+        <span class="hero__dollar">$</span><span class="hero__word">
+          <span class="ch">F</span><span class="ch">U</span><span class="ch">T</span><span class="ch">A</span>
+        </span>
+      </h1>
+
+      <div class="hero__portrait" id="heroPortrait">
+        <div class="hero__ring">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="ringPath" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0" /></defs>
+            <text><textPath href="#ringPath">FUTACOIN ✦ $FUTA ✦ OLDEST LIVING RED PANDA IN CAPTIVITY ✦ </textPath></text>
+          </svg>
+        </div>
+        <div class="coin" id="coin">
+          <img src="assets/img/coin.png" alt="Futacoin, the $FUTA coin" />
+          <i class="coin__glare" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="hero__bottom">
+        <p class="hero__lede" data-i18n="hero.lede">
+          He stood up in 2005 and Japan lost its mind.<br />
+          Twenty-one years later he's <em>officially</em> the oldest living red panda in captivity.
+        </p>
+
+        <div class="hero__age">
+          <span class="mono label" data-i18n="hero.ageLabel">Futa's age, live</span>
+          <div class="age" id="age">
+            <div><b id="ageY">23</b><small data-i18n="age.y">years</small></div>
+            <div><b id="ageD">135</b><small data-i18n="age.d">days</small></div>
+            <div><b id="ageH">00</b><small data-i18n="age.h">hrs</small></div>
+            <div><b id="ageM">00</b><small data-i18n="age.m">min</small></div>
+            <div><b id="ageS">00</b><small data-i18n="age.s">sec</small></div>
+          </div>
+        </div>
+
+        <button class="ca magnetic" type="button" aria-label="Contract address: coming soon">
+          <span class="ca__tag mono">CA</span>
+          <span class="ca__val mono" data-i18n="ca.soon">coming soon</span>
+          <span class="ca__dot"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>$FUTA</span><span class="star">✦</span><span>THE PANDA WHO STOOD UP</span><span class="star">✦</span><span>23 YEARS 135 DAYS</span><span class="star">✦</span><span>風太</span><span class="star">✦</span><span>OFFICIALLY THE OLDEST</span><span class="star">✦</span>
+        <span>$FUTA</span><span class="star">✦</span><span>THE PANDA WHO STOOD UP</span><span class="star">✦</span><span>23 YEARS 135 DAYS</span><span class="star">✦</span><span>風太</span><span class="star">✦</span><span>OFFICIALLY THE OLDEST</span><span class="star">✦</span>
+      </div>
+    </div>
+
+    <!-- THE STAND -->
+    <section class="stand" id="stand">
+      <div class="stand__pin">
+        <div class="stand__media">
+          <img src="assets/img/stand-2010.jpg" alt="Futa standing upright on his hind legs at Chiba Zoological Park, 2010" />
+          <div class="stand__caption mono" data-i18n="stand.caption">FIG. 01 — THE STANCE. CHIBA ZOOLOGICAL PARK.</div>
+        </div>
+        <p class="stand__text" id="standText" data-i18n="stand.text">
+          Spring, 2005. A small red panda in Chiba did something red pandas rarely bother to do. He stood up. Straight up, on two legs, for ten whole seconds. Then he did it again. And again.
+        </p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+      <div class="stat">
+        <b class="count" data-to="10">0</b><span data-i18n="stat1.unit">sec</span>
+        <p data-i18n="stat1.p">How long Futa would hold the pose. Upright, paws dangling, completely unbothered.</p>
+      </div>
+      <div class="stat">
+        <b class="count" data-to="7000">0</b><span data-i18n="stat2.unit">/day</span>
+        <p data-i18n="stat2.p">Visitors at the peak of the 2005 boom. Nationwide news, a TV commercial, the works.</p>
+      </div>
+      <div class="stat">
+        <b class="count" data-to="80">0</b><span data-i18n="stat3.unit">+</span>
+        <p data-i18n="stat3.p">His age in human years, roughly. Still has a good appetite, according to his keepers.</p>
+      </div>
+    </section>
+
+    <!-- LIFE / HORIZONTAL TIMELINE -->
+    <section class="life" id="life">
+      <div class="life__pin">
+        <div class="life__head">
+          <span class="mono label" data-i18n="life.label">Chapter II</span>
+          <h2 data-i18n="life.h2">23 years<br /><em>of standing out.</em></h2>
+        </div>
+        <div class="life__track" id="lifeTrack">
+          <article class="tl">
+            <span class="tl__year">2003</span>
+            <div class="tl__img"><img src="assets/img/stare.jpg" alt="Futa looking at the camera" loading="lazy" /></div>
+            <h3 data-i18n="tl1.h">Born in Shizuoka</h3>
+            <p data-i18n="tl1.p">July 5th, Nihondaira Zoo. A tiny ball of rust-coloured fluff with absolutely no idea what was coming.</p>
+          </article>
+          <article class="tl">
+            <span class="tl__year">2004</span>
+            <div class="tl__img"><img src="assets/img/snack.jpg" alt="Futa being hand-fed by a keeper" loading="lazy" /></div>
+            <h3 data-i18n="tl2.h">Moves to Chiba</h3>
+            <p data-i18n="tl2.p">Transferred to Chiba Zoological Park, the place he'd call home for the next two decades and counting.</p>
+          </article>
+          <article class="tl tl--big">
+            <span class="tl__year">2005</span>
+            <div class="tl__img"><img src="assets/img/futa-2005.jpg" alt="Futa in 2005" loading="lazy" /></div>
+            <h3 data-i18n="tl3.h">He stands up</h3>
+            <p data-i18n="tl3.p">Newspapers catch him on two legs. The clip goes everywhere. Queues form. A drinks brand puts him on TV. A whole country learns what a red panda is.</p>
+          </article>
+          <article class="tl">
+            <span class="tl__year">2010</span>
+            <div class="tl__img"><img src="assets/img/stand-pair-2010.jpg" alt="Two red pandas standing on a platform, 2010" loading="lazy" /></div>
+            <h3 data-i18n="tl4.h">Still standing</h3>
+            <p data-i18n="tl4.p">Not a one-time trick. Five years later he's still popping up on his hind legs like it's nothing.</p>
+          </article>
+          <article class="tl">
+            <span class="tl__year">2020</span>
+            <div class="tl__img"><img src="assets/img/futa-2026.jpg" alt="Futa sitting in his enclosure" loading="lazy" /></div>
+            <h3 data-i18n="tl5.h">A dynasty</h3>
+            <p data-i18n="tl5.p">Still standing at 17. By now he's a great-great-grandfather, with descendants spread across zoos.</p>
+          </article>
+          <article class="tl">
+            <span class="tl__year">2023</span>
+            <div class="tl__img"><img src="assets/img/statue.jpg" alt="Stone statue of Futa standing" loading="lazy" /></div>
+            <h3 data-i18n="tl6.h">Twenty, and a monument</h3>
+            <p data-i18n="tl6.p">He turns 20. The zoo even has a statue of him, standing, obviously. Few memes get carved in stone.</p>
+          </article>
+          <article class="tl">
+            <span class="tl__year">2026</span>
+            <div class="tl__img"><img src="assets/img/guinness-cert.jpg" alt="Futa next to his Guinness World Records certificate" loading="lazy" /></div>
+            <h3 data-i18n="tl7.h">Officially amazing</h3>
+            <p data-i18n="tl7.p">November 17th. Guinness World Records certifies him as the oldest living red panda in captivity.</p>
+          </article>
+          <div class="tl tl--end">
+            <span data-i18n="tl.end">and he's<br />still here.</span>
+          </div>
+        </div>
+        <div class="life__progress"><i id="lifeProgress"></i></div>
+      </div>
+    </section>
+
+    <!-- RECORD -->
+    <section class="record" id="record">
+      <div class="record__bg" aria-hidden="true">23</div>
+      <div class="record__grid">
+        <div class="record__card" id="certCard">
+          <div class="record__card-inner">
+            <img src="assets/img/guinness-cert.jpg" alt="Futa sitting next to his Guinness World Records certificate, 17 November 2026" />
+            <div class="record__shine"></div>
+          </div>
+          <div class="seal" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <defs><path id="sealPath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" /></defs>
+              <text><textPath href="#sealPath">RECORD HOLDER ✦ 17.11.2026 ✦ RECORD HOLDER ✦ 17.11.2026 ✦ </textPath></text>
+            </svg>
+            <b>No.1</b>
+          </div>
+        </div>
+        <div class="record__copy">
+          <span class="mono label" data-i18n="record.label">Chapter III — The Record</span>
+          <h2 data-i18n="record.h2">Oldest living red panda in captivity.</h2>
+          <div class="record__big">
+            <div><b class="count" data-to="23">0</b><small data-i18n="record.y">years</small></div>
+            <div><b class="count" data-to="135">0</b><small data-i18n="record.d">days</small></div>
+          </div>
+          <p data-i18n="record.p1">
+            On <strong>17 November 2026</strong>, at a ceremony at Chiba Zoological Park, Guinness World Records made it official.
+            Bad weather kept the crowds away, so the zoo shared the moment online instead, and the internet did what it does.
+          </p>
+          <p data-i18n="record.p2">
+            For context: most red pandas in human care don't make it anywhere near this age. Futa has a cataract in his right eye these days,
+            but his keepers say he's still eating well and doing fine.
+          </p>
+          <blockquote class="mono">
+            “The oldest living red panda in captivity is Futa (b. 5 July 2003) who is 23 years and 135 days old.”
+            <cite data-i18n="record.cite">— the certificate</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+      <div class="gallery__head">
+        <span class="mono label" data-i18n="gallery.label">Chapter IV</span>
+        <h2 data-i18n="gallery.h2">Portrait of<br /><em>a legend.</em></h2>
+      </div>
+      <div class="gallery__cols">
+        <div class="gcol" data-speed="-0.15">
+          <figure><img src="assets/img/stare.jpg" alt="Futa staring into the lens" loading="lazy" /><figcaption data-i18n="g.stare">the stare</figcaption></figure>
+          <figure><img src="assets/img/stand-2010.jpg" alt="Futa standing" loading="lazy" /><figcaption data-i18n="g.stance">the stance</figcaption></figure>
+          <figure><img src="assets/img/nap-wall.jpg" alt="Futa napping against a wall" loading="lazy" /><figcaption data-i18n="g.nap">the nap</figcaption></figure>
+        </div>
+        <div class="gcol" data-speed="0.12">
+          <figure class="tall"><img src="assets/img/futa-face.jpg" alt="Futa close-up" loading="lazy" /><figcaption data-i18n="g.face">the face</figcaption></figure>
+          <figure><img src="assets/img/zoo-collage.png" alt="Collage of Futa photos from Chiba Zoological Park" loading="lazy" /><figcaption data-i18n="g.moods">the many moods</figcaption></figure>
+          <figure><img src="assets/img/curl.jpg" alt="Futa curled up in the grass" loading="lazy" /><figcaption data-i18n="g.curl">the curl</figcaption></figure>
+        </div>
+        <div class="gcol" data-speed="-0.25">
+          <figure><img src="assets/img/snack.jpg" alt="Futa getting a snack" loading="lazy" /><figcaption data-i18n="g.snack">the snack</figcaption></figure>
+          <figure class="tall"><img src="assets/img/guinness-cert.jpg" alt="Futa with his Guinness certificate" loading="lazy" /><figcaption data-i18n="g.record">the record</figcaption></figure>
+          <figure><img src="assets/img/statue.jpg" alt="Futa statue" loading="lazy" /><figcaption data-i18n="g.statue">the statue</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIG QUOTE -->
+    <section class="manifesto">
+      <p class="manifesto__text" id="manifesto" data-i18n="manifesto">
+        Every cycle has a dog. Every cycle has a frog. This one gets a <em>23-year-old red panda</em> with a world record, a statue, great-great-grandkids and nothing left to prove.
+      </p>
+    </section>
+
+    <!-- DONATE -->
+    <section class="donate" id="donate">
+      <div class="donate__wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,64 C240,120 480,0 720,48 C960,96 1200,16 1440,56 L1440,120 L0,120 Z"/></svg>
+      </div>
+      <div class="donate__inner">
+        <span class="mono label" data-i18n="donate.label">Chapter V — Give back</span>
+        <h2 class="donate__title">
+          <span data-i18n="donate.t1">Futa made it to 23.</span>
+          <span data-i18n="donate.t2"><em>Wild red pandas</em></span>
+          <span data-i18n="donate.t3">need help to make it at all.</span>
+        </h2>
+        <div class="donate__grid">
+          <div class="donate__copy">
+            <p data-i18n="donate.p1">
+              Red pandas are listed as <strong>Endangered</strong>. In the wild they're losing their forests in the Eastern Himalayas to logging, grazing and roads, and they're still poached.
+            </p>
+            <p data-i18n="donate.p2">
+              <strong>$FUTA donates to Red Panda Network</strong>, the non-profit that pays and trains local Forest Guardians in Nepal to monitor red pandas, restore habitat and stop poaching. Our donations are made through <strong>donate.gg</strong>.
+            </p>
+            <a class="donate__btn magnetic" href="https://www.donate.gg/charities/red-panda-network" target="_blank" rel="noopener">
+              <span data-i18n="donate.btn">See the charity on donate.gg</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+          <div class="donate__cards">
+            <div class="dcard"><b>01</b><span data-i18n="donate.c1">A standing panda made Japan care about red pandas.</span></div>
+            <div class="dcard"><b>02</b><span data-i18n="donate.c2">$FUTA puts that attention on-chain.</span></div>
+            <div class="dcard"><b>03</b><span data-i18n="donate.c3">Donations go to Red Panda Network via donate.gg.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot__big" aria-hidden="true">$FUTA</div>
+    <div class="foot__row">
+      <a href="#top" class="nav__brand"><img src="assets/img/coin-96.png" alt="" width="40" height="40" /><span>Futacoin <small class="mono">$FUTA</small></span></a>
+      <button class="ca ca--small" type="button" aria-label="Contract address: coming soon"><span class="ca__tag mono">CA</span><span class="ca__val mono" data-i18n="ca.soon">coming soon</span></button>
+      <a href="#" class="x-btn" aria-label="$FUTA on X (coming soon)" title="X link coming soon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+    <p class="foot__legal" data-i18n="foot.legal">
+      Futacoin ($FUTA) is a community memecoin made out of love for Futa. It's not affiliated with or endorsed by Chiba Zoological Park, Guinness World Records, Red Panda Network or donate.gg.
+      It has no intrinsic value and no expected financial return. Not financial advice.
+    </p>
+    <p class="foot__credits">
+      Photos: Misei sen via Wikimedia Commons (CC BY 4.0); KQuhen via Wikimedia Commons (CC BY-SA 4.0); “Red panda fuuta” via Wikimedia Commons (CC BY-SA 3.0);
+      Guinness certificate photo and collage: Chiba Zoological Park (@ChibaZoo).
+    </p>
+  </footer>
+
+  <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="i18n.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
