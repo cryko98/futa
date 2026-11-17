@@ -18,7 +18,7 @@ const {
 } = require('@solana/addresses');
 
 const EXPECTED = {            // not frozen so tests can set a mint; only edit these constants here
-  mint: '',                                                               // $FUTA mint: set at launch (same value as CONFIG.CA in main.js)
+  mint: '2Qt3mhYF3PFiDooQgUKeNLw8dDRDjGBk3s7Abvq9pump',                   // $FUTA mint (same value as CONFIG.CA in main.js)
   chainId: 101,
   donationSource: 'pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ',          // Pump Fees program
   configId: null,                                                         // pin after the first settled receipt (null = any config)

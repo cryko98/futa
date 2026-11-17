@@ -23,7 +23,7 @@
   // CA: the $FUTA mint. Must equal EXPECTED.mint in api/_lib/meter-core.js (a test checks this).
   // X_URL: the X profile link. Empty = "coming soon" for either.
   const CONFIG = {
-    CA: '',
+    CA: '2Qt3mhYF3PFiDooQgUKeNLw8dDRDjGBk3s7Abvq9pump',
     X_URL: '',
   };
   const { CA, X_URL } = CONFIG;

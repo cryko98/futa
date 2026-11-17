@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Futacoin — 30s promo composition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;600;700&family=Noto+Serif+JP:wght@900&display=swap">
+<style>
+  :root { --ink:#140d0a; --ink2:#22160f; --paper:#f4ead9; --paper2:#eadcc4; --rust:#d4561c; --rust2:#ef7a2e; --ember:#8f2e0e; --gold:#f2b712; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; overflow: hidden; }
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--paper);
+    font-family: 'Fraunces', serif; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144; -webkit-font-smoothing: antialiased; }
+  #cam { position: absolute; inset: 0; }
+  .sc { position: absolute; inset: 0; overflow: hidden; visibility: hidden; }
+  .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: .14em; text-transform: uppercase; font-variation-settings: normal; }
+  .big { font-weight: 900; letter-spacing: -.05em; line-height: .86; }
+  .line { display: block; overflow: hidden; padding: 0 .06em .1em 0; margin-bottom: -.1em; }
+  .line > span { display: inline-block; will-change: transform; }
+  em { font-style: italic; color: var(--rust2); }
+  .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .label { position: absolute; left: 120px; top: 100px; font-size: 22px; color: var(--rust2); display: flex; align-items: center; gap: 16px; }
+  .label i { width: 12px; height: 12px; border-radius: 50%; background: var(--rust); }
+  #grain { position: absolute; inset: -60px; z-index: 50; pointer-events: none; opacity: .08;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  #leaves { position: absolute; inset: 0; z-index: 40; pointer-events: none; }
+  #flash { position: absolute; inset: 0; z-index: 60; background: #fff7e8; opacity: 0; pointer-events: none; }
+  #vignette { position: absolute; inset: 0; z-index: 45; pointer-events: none; background: radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(0,0,0,.35)); }
+
+  /* S1 spring 2005 */
+  #s1 { background: radial-gradient(70% 80% at 0% 100%, rgba(143,46,14,.55), transparent 70%), var(--ink); }
+  #s1 .kanji { position: absolute; right: 60px; top: -40px; writing-mode: vertical-rl; font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 620px; line-height: .9;
+    color: transparent; -webkit-text-stroke: 2px rgba(244,234,217,.14); }
+  #s1 .title { position: absolute; left: 112px; top: 300px; font-size: 300px; }
+  #s1 .sub { position: absolute; left: 124px; bottom: 120px; font-size: 26px; color: rgba(244,234,217,.7); }
+
+  /* S2 stood up */
+  #s2 .cover { object-position: 50% 0%; transform-origin: 50% 0%; }
+  #s2 .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,13,10,.92) 0%, rgba(20,13,10,.6) 42%, rgba(20,13,10,0) 75%); }
+  #s2 .title { position: absolute; left: 112px; top: 360px; }
+  #s2 .t1 { font-size: 150px; }
+  #s2 .t2 { font-size: 280px; }
+  #s2 .tag { position: absolute; left: 124px; bottom: 110px; font-size: 26px; padding: 14px 22px; border: 2px solid var(--rust2); border-radius: 99px; color: var(--paper); }
+
+  /* S3 boom (polaroids) */
+  #s3 { background: var(--paper); color: var(--ink); }
+  #s3 .title { position: absolute; left: 112px; top: 150px; font-size: 190px; }
+  #s3 .title em { color: var(--rust); }
+  #s3 .stat { position: absolute; left: 120px; bottom: 120px; }
+  #s3 .stat b { display: block; font-size: 200px; font-weight: 900; letter-spacing: -.05em; line-height: .85; font-variant-numeric: tabular-nums; }
+  #s3 .stat b small { font-family: 'JetBrains Mono', monospace; font-size: 40px; letter-spacing: .06em; color: var(--rust); margin-left: 12px; }
+  #s3 .stat > span { font-size: 22px; color: var(--ember); }
+  .pol { position: absolute; width: 520px; padding: 22px 22px 70px; background: #fffaf0; box-shadow: 0 30px 60px -20px rgba(20,13,10,.55), 0 2px 0 rgba(0,0,0,.05); }
+  .pol img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .pol figcaption { position: absolute; left: 24px; bottom: 22px; font-family: 'JetBrains Mono', monospace; font-size: 22px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+  #p1 { left: 1180px; top: 120px; } #p2 { left: 1300px; top: 330px; } #p3 { left: 1040px; top: 420px; } #p4 { left: 1330px; top: 90px; }
+
+  /* S4 years */
+  #s4 { background: var(--ink); }
+  #s4 .label { left: 50%; transform: translateX(-50%); top: 230px; font-size: 30px; }
+  #s4 .year { position: absolute; left: 0; right: 0; top: 330px; text-align: center; font-size: 480px; font-weight: 900; letter-spacing: -.05em; line-height: .9;
+    font-variant-numeric: tabular-nums; color: transparent; -webkit-text-stroke: 4px var(--paper); }
+  #s4 .bar { position: absolute; left: 360px; right: 360px; bottom: 170px; height: 6px; background: rgba(244,234,217,.15); }
+  #s4 .bar i { position: absolute; inset: 0; background: var(--rust2); transform-origin: left; transform: scaleX(0); }
+  #s4 .ends { position: absolute; left: 360px; right: 360px; bottom: 110px; display: flex; justify-content: space-between; font-size: 22px; color: rgba(244,234,217,.6); }
+
+  /* S5 the record */
+  #s5 { background: radial-gradient(70% 90% at 80% 20%, #ef7a2e, transparent 70%), var(--rust); color: var(--ink); }
+  #s5 .card { position: absolute; left: 150px; top: 110px; width: 640px; height: 860px; border-radius: 22px; overflow: hidden; box-shadow: 0 60px 120px -30px rgba(40,10,0,.7); border: 6px solid var(--paper); }
+  #s5 .card img { width: 100%; height: 100%; object-fit: cover; }
+  #s5 .seal { position: absolute; left: 650px; top: 760px; width: 230px; height: 230px; border-radius: 50%; background: var(--ink); color: var(--gold); display: grid; place-items: center; box-shadow: 0 20px 40px rgba(0,0,0,.4); }
+  #s5 .seal svg { position: absolute; inset: 0; }
+  #s5 .seal text { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: .14em; fill: var(--gold); }
+  #s5 .seal b { font-size: 58px; font-style: italic; font-weight: 900; }
+  #s5 .copy { position: absolute; left: 960px; top: 150px; right: 100px; }
+  #s5 .copy .mono { font-size: 24px; color: var(--paper); display: block; margin-bottom: 34px; }
+  #s5 .copy .title { font-size: 128px; }
+  #s5 .copy .title em { color: var(--paper); }
+  #s5 .nums { position: absolute; left: 960px; bottom: 120px; display: flex; gap: 70px; }
+  #s5 .nums div { display: flex; align-items: baseline; gap: 14px; }
+  #s5 .nums b { font-size: 210px; font-weight: 900; letter-spacing: -.06em; line-height: .8; color: var(--paper); font-variant-numeric: tabular-nums; }
+  #s5 .nums small { font-family: 'JetBrains Mono', monospace; font-size: 28px; letter-spacing: .1em; text-transform: uppercase; }
+
+  /* S6 the coin */
+  #s6 { background: radial-gradient(50% 70% at 70% 50%, rgba(242,183,18,.35), transparent 70%), radial-gradient(60% 60% at 10% 100%, rgba(143,46,14,.5), transparent 70%), var(--ink); }
+  #s6 .coinwrap { position: absolute; left: 1150px; top: 210px; width: 660px; height: 660px; perspective: 1600px; }
+  #s6 .coin { position: absolute; inset: 0; transform-style: preserve-3d; }
+  #s6 .coin img { width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 60px 120px -30px rgba(0,0,0,.8), 0 0 140px -10px rgba(242,183,18,.55); }
+  #s6 .ring { position: absolute; inset: -110px; }
+  #s6 .ring text { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: .2em; fill: var(--paper); }
+  #s6 .ticker { position: absolute; left: 100px; top: 300px; font-size: 300px; display: flex; align-items: flex-start; }
+  #s6 .ticker .d { font-size: .42em; color: var(--rust2); font-style: italic; margin-top: .14em; display: inline-block; }
+  #s6 .ticker .ch { display: inline-block; }
+  #s6 .ticker .ch.u { font-style: italic; color: var(--rust); }
+  #s6 .name { position: absolute; left: 120px; top: 640px; font-size: 96px; font-style: italic; font-weight: 600; }
+  #s6 .sol { position: absolute; left: 124px; top: 800px; font-size: 26px; color: var(--gold); display: flex; gap: 18px; align-items: center; }
+  #s6 .sol i { width: 60px; height: 2px; background: var(--gold); }
+
+  /* S7 flow */
+  #s7 { background: var(--paper); color: var(--ink); }
+  #s7 .title { position: absolute; left: 112px; top: 110px; font-size: 170px; }
+  #s7 .title em { color: var(--rust); }
+  #s7 .flow { position: absolute; left: 112px; right: 112px; top: 560px; height: 300px; }
+  #s7 .node { position: absolute; top: 0; width: 470px; height: 260px; border: 4px solid var(--ink); border-radius: 30px; background: #fffaf0; box-shadow: 14px 14px 0 var(--ink);
+    padding: 34px 36px; display: flex; flex-direction: column; justify-content: space-between; }
+  #s7 .node .mono { font-size: 20px; color: var(--ember); }
+  #s7 .node b { font-size: 58px; font-weight: 900; letter-spacing: -.03em; line-height: .95; }
+  #s7 .node img { position: absolute; right: 26px; top: 26px; width: 92px; height: 92px; border-radius: 50%; }
+  #s7 #n1 { left: 0; } #s7 #n2 { left: 625px; } #s7 #n3 { left: 1250px; background: var(--rust); }
+  #s7 #n3 b, #s7 #n3 .mono { color: var(--paper); }
+  #s7 svg.wires { position: absolute; left: 0; top: 0; width: 1696px; height: 260px; overflow: visible; }
+  #s7 .wire { stroke: var(--ink); stroke-width: 5; stroke-dasharray: 14 12; fill: none; }
+  #s7 .dot { fill: var(--gold); stroke: var(--ink); stroke-width: 4; }
+  #s7 .foot { position: absolute; left: 116px; bottom: 90px; font-size: 24px; color: var(--ember); display: flex; gap: 16px; align-items: center; }
+  #s7 .foot i { width: 12px; height: 12px; border-radius: 50%; background: var(--rust); }
+
+  /* S8 receipts */
+  #s8 { background: radial-gradient(60% 70% at 100% 100%, rgba(212,86,28,.35), transparent 70%), var(--ink); }
+  #s8 .title { position: absolute; left: 112px; top: 200px; font-size: 168px; }
+  #s8 .quote { position: absolute; left: 120px; bottom: 140px; font-size: 54px; font-style: italic; font-weight: 500; color: var(--paper2); }
+  #s8 .trail { position: absolute; left: 1060px; top: 250px; width: 760px; display: grid; gap: 22px; }
+  #s8 .row { display: grid; grid-template-columns: 76px 1fr 64px; align-items: center; gap: 26px; padding: 26px 30px; border-radius: 26px; border: 2px solid rgba(244,234,217,.18); background: rgba(244,234,217,.04); }
+  #s8 .row .n { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; background: rgba(244,234,217,.1); font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 700; color: var(--gold); }
+  #s8 .row b { display: block; font-size: 42px; font-weight: 800; letter-spacing: -.01em; }
+  #s8 .row small { display: block; margin-top: 6px; font-size: 20px; color: rgba(244,234,217,.6); }
+  #s8 .row .ok { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--rust); font-size: 34px; color: var(--paper); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+  #s8 .row.last { background: var(--rust); border-color: var(--rust); }
+  #s8 .row.last .n { background: var(--ink); }
+  #s8 .row.last small { color: rgba(244,234,217,.85); }
+  #s8 .row.last .ok { background: var(--gold); color: var(--ink); }
+  #s8 .live { position: absolute; left: 1060px; top: 150px; font-size: 22px; color: var(--gold); display: flex; align-items: center; gap: 14px; }
+  #s8 .live i { width: 14px; height: 14px; border-radius: 50%; background: #9dff7a; }
+
+  /* S9 end card */
+  #s9 { background: radial-gradient(55% 75% at 30% 45%, rgba(242,183,18,.28), transparent 70%), radial-gradient(60% 60% at 100% 100%, rgba(212,86,28,.4), transparent 70%), var(--ink); }
+  #s9 .coin { position: absolute; left: 150px; top: 180px; width: 520px; height: 520px; border-radius: 50%; box-shadow: 0 50px 100px -30px rgba(0,0,0,.8), 0 0 120px -10px rgba(242,183,18,.5); }
+  #s9 .ticker { position: absolute; left: 760px; top: 190px; font-size: 290px; display: flex; align-items: flex-start; }
+  #s9 .ticker .d { font-size: .42em; color: var(--rust2); font-style: italic; margin-top: .14em; }
+  #s9 .ticker .u { font-style: italic; color: var(--rust); }
+  #s9 .tag { position: absolute; left: 772px; top: 500px; font-size: 64px; font-style: italic; font-weight: 500; color: var(--paper2); }
+  #s9 .rec { position: absolute; left: 776px; top: 620px; font-size: 22px; color: var(--gold); }
+  #s9 .ca { position: absolute; left: 150px; right: 150px; bottom: 120px; display: flex; align-items: center; gap: 28px; padding: 22px 26px; border-radius: 99px; background: var(--paper); color: var(--ink); }
+  #s9 .ca b { flex: none; background: var(--ink); color: var(--paper); font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 700; padding: 14px 26px; border-radius: 99px; letter-spacing: .1em; }
+  #s9 .ca span { font-family: 'JetBrains Mono', monospace; font-size: 40px; font-weight: 700; letter-spacing: .01em; white-space: nowrap; }
+  #s9 .ca small { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 22px; letter-spacing: .14em; color: var(--ember); padding-right: 14px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="cam">
+
+    <section class="sc" id="s1">
+      <div class="kanji">風太</div>
+      <p class="label mono"><i></i>Chiba Zoological Park · Japan</p>
+      <h1 class="title big"><span class="line"><span>Spring,</span></span><span class="line"><span><em>2005.</em></span></span></h1>
+      <p class="sub mono">A red panda named Futa</p>
+    </section>
+
+    <section class="sc" id="s2">
+      <img class="cover" src="../assets/img/stand-2010.jpg" alt="">
+      <div class="shade"></div>
+      <h2 class="title big"><span class="line t1"><span>A red panda</span></span><span class="line t2"><span><em>stood up.</em></span></span></h2>
+      <p class="tag mono">Ten seconds · on two legs</p>
+    </section>
+
+    <section class="sc" id="s3">
+      <h2 class="title big"><span class="line"><span>Japan lost</span></span><span class="line"><span><em>its mind.</em></span></span></h2>
+      <div class="stat"><span class="mono">Peak of the 2005 boom</span><b><span id="visitors">0</span><small>visitors/day</small></b></div>
+      <figure class="pol" id="p1"><img src="../assets/img/futa-2005.jpg" alt=""><figcaption>2005</figcaption></figure>
+      <figure class="pol" id="p2"><img src="../assets/img/stare.jpg" alt=""><figcaption>the stare</figcaption></figure>
+      <figure class="pol" id="p3"><img src="../assets/img/statue.jpg" alt=""><figcaption>the statue</figcaption></figure>
+      <figure class="pol" id="p4"><img src="../assets/img/futa-face.jpg" alt=""><figcaption>the face</figcaption></figure>
+    </section>
+
+    <section class="sc" id="s4">
+      <p class="label mono"><i></i>And he kept going</p>
+      <div class="year" id="year">2005</div>
+      <div class="bar"><i></i></div>
+      <div class="ends mono"><span>2003 · born</span><span>2026 · still here</span></div>
+    </section>
+
+    <section class="sc" id="s5">
+      <div class="card"><img src="../assets/img/guinness-cert.jpg" alt=""></div>
+      <div class="seal">
+        <svg viewBox="0 0 200 200"><defs><path id="sp" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+          <text><textPath href="#sp">RECORD HOLDER ✦ 17.11.2026 ✦ RECORD HOLDER ✦ 17.11.2026 ✦ </textPath></text></svg>
+        <b>No.1</b>
+      </div>
+      <div class="copy">
+        <span class="mono">Guinness World Records · 17 Nov 2026</span>
+        <h2 class="title big"><span class="line"><span>Oldest living</span></span><span class="line"><span><em>red panda</em></span></span><span class="line"><span>in captivity.</span></span></h2>
+      </div>
+      <div class="nums"><div><b id="ny">0</b><small>years</small></div><div><b id="nd">0</b><small>days</small></div></div>
+    </section>
+
+    <section class="sc" id="s6">
+      <div class="coinwrap">
+        <svg class="ring" viewBox="0 0 200 200"><defs><path id="rp" d="M100,100 m-90,0 a90,90 0 1,1 180,0 a90,90 0 1,1 -180,0"/></defs>
+          <text><textPath href="#rp">FUTACOIN ✦ $FUTA ✦ THE RED PANDA WHO STOOD UP ✦ </textPath></text></svg>
+        <div class="coin"><img src="../assets/img/coin.png" alt=""></div>
+      </div>
+      <h2 class="ticker big"><span class="d">$</span><span class="ch">F</span><span class="ch u">U</span><span class="ch">T</span><span class="ch">A</span></h2>
+      <p class="name">Futacoin</p>
+      <p class="sol mono"><i></i>Live on Solana</p>
+    </section>
+
+    <section class="sc" id="s7">
+      <h2 class="title big"><span class="line"><span>Every trade</span></span><span class="line"><span><em>gives back.</em></span></span></h2>
+      <div class="flow">
+        <svg class="wires" viewBox="0 0 1696 260">
+          <path class="wire" id="w1" d="M470 130 L625 130"/>
+          <path class="wire" id="w2" d="M1095 130 L1250 130"/>
+          <circle class="dot" id="dot" cx="470" cy="130" r="16"/>
+        </svg>
+        <div class="node" id="n1"><img src="../assets/img/coin-96.png" alt=""><span class="mono">01 · Trading</span><b>$FUTA creator<br>rewards</b></div>
+        <div class="node" id="n2"><span class="mono">02 · On-chain</span><b>donate.gg</b></div>
+        <div class="node" id="n3"><span class="mono">03 · Charity</span><b>Red Panda<br>Network</b></div>
+      </div>
+      <p class="foot mono"><i></i>Protecting wild red pandas · Forest Guardians in Nepal</p>
+    </section>
+
+    <section class="sc" id="s8">
+      <h2 class="title big"><span class="line"><span>Every dollar,</span></span><span class="line"><span><em>on the record.</em></span></span></h2>
+      <p class="quote">No promises. Just receipts.</p>
+      <p class="live mono"><i></i>Live donation tracker · on the site</p>
+      <div class="trail">
+        <div class="row" id="r1"><span class="n">1</span><div><b>Creator vault</b><small>Trading fees collecting</small></div><span class="ok">→</span></div>
+        <div class="row" id="r2"><span class="n">2</span><div><b>Converting to USDC</b><small>In the donation pipe</small></div><span class="ok">→</span></div>
+        <div class="row last" id="r3"><span class="n">3</span><div><b>Donated to Red Panda Network</b><small>Settled on-chain · the only thing we count</small></div><span class="ok">✓</span></div>
+      </div>
+    </section>
+
+    <section class="sc" id="s9">
+      <img class="coin" src="../assets/img/coin.png" alt="">
+      <h2 class="ticker big"><span class="d">$</span><span>F</span><span class="u">U</span><span>TA</span></h2>
+      <p class="tag">The red panda who stood up.</p>
+      <p class="rec mono">Oldest living red panda in captivity · 23 years</p>
+      <div class="ca"><b>CA</b><span>2Qt3mhYF3PFiDooQgUKeNLw8dDRDjGBk3s7Abvq9pump</span><small>Solana</small></div>
+    </section>
+
+  </div>
+  <canvas id="leaves" width="1920" height="1080"></canvas>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div id="flash"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(async () => {
+  const B = 60 / 110, T = b => b * B, DUR = 30;
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const tl = gsap.timeline({ paused: true });
+
+  const scene = (id, a, b) => { tl.set(id, { visibility: 'visible' }, a); if (b < DUR) tl.set(id, { visibility: 'hidden' }, b); };
+  const rise = (sel, at, stagger = .1, dur = .9) => tl.from(sel, { yPercent: 115, duration: dur, ease: 'expo.out', stagger }, at);
+  const flash = (at, peak = .85, dur = .35) => tl.fromTo('#flash', { opacity: peak }, { opacity: 0, duration: dur, ease: 'power2.out', immediateRender: false }, at);
+  const shake = (at, amt = 14) => tl.fromTo('#cam', { x: amt, y: -amt * .6 }, { x: 0, y: 0, duration: .45, ease: 'elastic.out(1.2,.3)', immediateRender: false }, at);
+
+  /* S1 0 – 4 beats */
+  scene('#s1', 0, T(4));
+  tl.fromTo('#s1 .kanji', { yPercent: 6, opacity: 0 }, { yPercent: -4, opacity: 1, duration: T(4), ease: 'none' }, 0);
+  tl.from('#s1 .label', { x: -40, opacity: 0, duration: .6, ease: 'power3.out' }, .1);
+  rise('#s1 .title .line > span', .15, .18, 1.1);
+  tl.from('#s1 .sub', { y: 30, opacity: 0, duration: .6, ease: 'power3.out' }, T(2));
+
+  /* S2 4 – 8 */
+  scene('#s2', T(4), T(8));
+  flash(T(4), .5, .3);
+  tl.fromTo('#s2 .cover', { scale: 1.2 }, { scale: 1.02, duration: T(4), ease: 'power1.out' }, T(4));
+  rise('#s2 .t1 > span', T(4) + .08, 0, .8);
+  tl.from('#s2 .t2 > span', { yPercent: 115, duration: .8, ease: 'expo.out' }, T(6));
+  shake(T(6), 10);
+  tl.from('#s2 .tag', { scale: .6, opacity: 0, duration: .5, ease: 'back.out(2)' }, T(6.5));
+
+  /* S3 8 – 12: polaroids land on the beat */
+  scene('#s3', T(8), T(12));
+  rise('#s3 .title .line > span', T(8), .12, .8);
+  tl.from('#s3 .stat', { y: 60, opacity: 0, duration: .6, ease: 'power3.out' }, T(8.5));
+  [['#p1', -9, 0], ['#p2', 7, 1], ['#p3', -4, 2], ['#p4', 11, 3]].forEach(([id, r, k]) => {
+    tl.fromTo(id, { y: -900, rotate: r * 3, scale: 1.25 }, { y: 0, rotate: r, scale: 1, duration: .42, ease: 'power4.out' }, T(8 + k) - .06);
+    shake(T(8 + k) + .3, 6);
+  });
+
+  /* S4 12 – 16: the years roll (riser) */
+  scene('#s4', T(12), T(16));
+  tl.from('#s4 .label', { y: -30, opacity: 0, duration: .5, ease: 'power3.out' }, T(12));
+  tl.fromTo('#s4 .bar i', { scaleX: 0 }, { scaleX: 1, duration: T(4) - .1, ease: 'power2.in' }, T(12));
+  tl.from('#s4 .ends', { opacity: 0, duration: .4 }, T(12.3));
+  tl.fromTo('#s4 .year', { scale: .86 }, { scale: 1.08, duration: T(4), ease: 'power2.in' }, T(12));
+  tl.fromTo('#flash', { opacity: 0 }, { opacity: .95, duration: .22, ease: 'power2.in', immediateRender: false }, T(16) - .22);
+
+  /* S5 16 – 24: DROP — the record */
+  scene('#s5', T(16), T(24));
+  flash(T(16), .95, .5);
+  shake(T(16), 26);
+  tl.fromTo('#s5 .card', { scale: 1.7, rotate: -16, opacity: 0 }, { scale: 1, rotate: -3, opacity: 1, duration: .6, ease: 'expo.out' }, T(16));
+  tl.fromTo('#s5 .card img', { scale: 1.15 }, { scale: 1, duration: T(8), ease: 'none' }, T(16));
+  tl.fromTo('#s5 .seal', { scale: 0, rotate: -200 }, { scale: 1, rotate: 0, duration: .7, ease: 'back.out(1.8)' }, T(17));
+  tl.fromTo('#s5 .seal svg', { rotate: 0 }, { rotate: -120, duration: T(7), ease: 'none' }, T(17));
+  tl.from('#s5 .copy .mono', { y: 30, opacity: 0, duration: .5, ease: 'power3.out' }, T(16) + .15);
+  rise('#s5 .copy .title .line > span', T(16) + .2, .12, .9);
+  tl.from('#s5 .nums div', { y: 80, opacity: 0, duration: .6, stagger: .15, ease: 'power3.out' }, T(19));
+
+  /* S6 24 – 32: the coin */
+  scene('#s6', T(24), T(32));
+  flash(T(24), .6, .35);
+  tl.fromTo('#s6 .coin', { rotationY: -720, scale: .4 }, { rotationY: 0, scale: 1, duration: 1.8, ease: 'expo.out' }, T(24));
+  tl.fromTo('#s6 .ring', { rotate: -60, opacity: 0 }, { rotate: 40, opacity: 1, duration: T(8), ease: 'none' }, T(24));
+  tl.from('#s6 .ticker .d', { scale: 0, rotate: -120, duration: .7, ease: 'back.out(2)' }, T(25));
+  tl.from('#s6 .ticker .ch', { yPercent: 120, rotate: 10, opacity: 0, duration: .8, stagger: B / 2, ease: 'expo.out' }, T(25));
+  tl.from('#s6 .name', { x: -60, opacity: 0, duration: .7, ease: 'power3.out' }, T(27));
+  tl.from('#s6 .sol', { x: -60, opacity: 0, duration: .7, ease: 'power3.out' }, T(28));
+  for (let b = 28; b < 32; b++) tl.fromTo('#s6 .coinwrap', { scale: 1.045 }, { scale: 1, duration: B * .9, ease: 'power2.out', immediateRender: false }, T(b));
+
+  /* S7 32 – 40: where it goes */
+  scene('#s7', T(32), T(40));
+  flash(T(32), .4, .3);
+  rise('#s7 .title .line > span', T(32), .12, .85);
+  tl.fromTo('#n1', { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: .55, ease: 'back.out(1.6)' }, T(33));
+  tl.fromTo('#w1', { strokeDashoffset: 160, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: B, ease: 'none' }, T(34));
+  tl.fromTo('#dot', { attr: { cx: 470 }, opacity: 1 }, { attr: { cx: 625 }, duration: B, ease: 'power1.inOut' }, T(34));
+  tl.fromTo('#n2', { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: .55, ease: 'back.out(1.6)' }, T(35));
+  tl.to('#dot', { attr: { cx: 1095 }, duration: .01 }, T(36) - .01);
+  tl.fromTo('#w2', { strokeDashoffset: 160, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: B, ease: 'none' }, T(36));
+  tl.to('#dot', { attr: { cx: 1250 }, duration: B, ease: 'power1.inOut' }, T(36));
+  tl.fromTo('#n3', { y: 120, opacity: 0, rotate: 4 }, { y: 0, opacity: 1, rotate: 0, duration: .6, ease: 'back.out(1.8)' }, T(37));
+  tl.to('#dot', { scale: 0, transformOrigin: '50% 50%', duration: .2 }, T(37));
+  shake(T(37) + .2, 8);
+  tl.from('#s7 .foot', { y: 30, opacity: 0, duration: .5, ease: 'power3.out' }, T(38));
+  tl.to('#w1, #w2', { strokeDashoffset: -104, duration: T(4), ease: 'none' }, T(36));
+
+  /* S8 40 – 46: receipts */
+  scene('#s8', T(40), T(46));
+  flash(T(40), .45, .3);
+  rise('#s8 .title .line > span', T(40), .12, .85);
+  tl.from('#s8 .live', { x: 40, opacity: 0, duration: .5, ease: 'power3.out' }, T(40.5));
+  ['#r1', '#r2', '#r3'].forEach((id, k) => tl.fromTo(id, { x: 140, opacity: 0 }, { x: 0, opacity: 1, duration: .5, ease: 'power3.out' }, T(41 + k)));
+  tl.fromTo('#r3', { scale: 1 }, { scale: 1.04, duration: .18, yoyo: true, repeat: 1, ease: 'power2.out', immediateRender: false }, T(43.5));
+  tl.from('#s8 .quote', { y: 40, opacity: 0, duration: .6, ease: 'power3.out' }, T(44));
+
+  /* S9 46 – end: end card */
+  scene('#s9', T(46), DUR);
+  flash(T(46), 1, .6);
+  shake(T(46), 22);
+  tl.fromTo('#s9 .coin', { scale: .3, rotate: -200 }, { scale: 1, rotate: 0, duration: 1.1, ease: 'expo.out' }, T(46));
+  tl.from('#s9 .ticker > span', { yPercent: 120, opacity: 0, duration: .8, stagger: .07, ease: 'expo.out' }, T(46) + .1);
+  tl.from('#s9 .tag', { y: 30, opacity: 0, duration: .6, ease: 'power3.out' }, T(47));
+  tl.from('#s9 .rec', { y: 20, opacity: 0, duration: .6, ease: 'power3.out' }, T(47.5));
+  tl.from('#s9 .ca', { y: 120, opacity: 0, duration: .7, ease: 'expo.out' }, T(48));
+  tl.fromTo('#s9 .coin', { y: 0 }, { y: -14, duration: B * 2, yoyo: true, repeat: 3, ease: 'sine.inOut', immediateRender: false }, T(48));
+  tl.to('#stage', { duration: .01 }, DUR);   // pad the timeline to the full length
+
+  /* ---------- per-frame procedural layers (deterministic in t) ---------- */
+  const year = $('#year'), vis = $('#visitors'), ny = $('#ny'), nd = $('#nd');
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const eOut = k => 1 - Math.pow(1 - k, 3), eIn = k => k * k * k;
+  const cv = $('#leaves'), ctx = cv.getContext('2d');
+  let s = 7; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  const LEAVES = Array.from({ length: 34 }, () => ({ x: rnd() * 1920, y: rnd() * 1300, len: 26 + rnd() * 40, vy: 70 + rnd() * 120, sw: rnd() * 6.28,
+    ss: .6 + rnd() * 1.4, r0: rnd() * 6.28, vr: (rnd() - .5) * 2.2, c: ['#8fa65a', '#6f8a3e', '#b7c77a', '#d4561c', '#ef7a2e'][(rnd() * 5) | 0], a: .3 + rnd() * .5 }));
+  const leafAlpha = t => t < T(4) ? 1 : (t >= T(24) && t < T(32)) ? .9 : t >= T(46) ? 1 : 0;
+  const grain = $('#grain');
+
+  function draw(t) {
+    tl.seek(t, true);
+    // S4 year counter: accelerates with the snare roll
+    const k4 = clamp((t - T(12)) / (T(4) - .15));
+    year.textContent = Math.round(2005 + 21 * eIn(k4));
+    // S3 visitors: steps up with each polaroid
+    const k3 = clamp((t - T(8.4)) / T(3.4));
+    vis.textContent = Math.round(7000 * eOut(k3)).toLocaleString('en-US');
+    // S5 numbers
+    const k5 = clamp((t - T(19)) / 1.6);
+    ny.textContent = Math.round(23 * eOut(k5)); nd.textContent = Math.round(135 * eOut(k5));
+    // leaves
+    ctx.clearRect(0, 0, 1920, 1080);
+    const la = leafAlpha(t);
+    if (la > 0) for (const l of LEAVES) {
+      const y = ((l.y + t * l.vy) % 1180) - 60, x = l.x + Math.sin(l.sw + t * l.ss) * 60;
+      ctx.save(); ctx.translate(x, y); ctx.rotate(l.r0 + t * l.vr); ctx.globalAlpha = l.a * la; ctx.fillStyle = l.c;
+      ctx.beginPath(); ctx.moveTo(-l.len / 2, 0); ctx.quadraticCurveTo(0, -l.len * .22, l.len / 2, 0); ctx.quadraticCurveTo(0, l.len * .22, -l.len / 2, 0); ctx.fill(); ctx.restore();
+    }
+    // grain jitter, one position per frame
+    const f = Math.floor(t * 30);
+    grain.style.transform = `translate(${(f * 37) % 60 - 30}px, ${(f * 53) % 60 - 30}px)`;
+  }
+
+  window.__duration = DUR; window.__vo = {}; window.__caps = [];
+  window.__seek = t => draw(t);
+
+  await document.fonts.ready;
+  await Promise.all($$('img').map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+  draw(0);
+
+  const q = new URLSearchParams(location.search);
+  if (q.has('t')) draw(+q.get('t'));
+  if (q.has('play')) {
+    const a = new Audio('audio/score.wav'); a.play().catch(() => {});
+    const t0 = performance.now();
+    const loop = () => { const t = (performance.now() - t0) / 1000; draw(t % DUR); requestAnimationFrame(loop); };
+    loop();
+  }
+  window.__ready = true;
+})();
+</script>
+</body>
+</html>
